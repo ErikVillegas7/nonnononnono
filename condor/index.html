@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebAR Cóndor</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-ar.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+  <!-- Escena de A-Frame con AR.js -->
+  <a-scene
+    embedded
+    arjs="sourceType: webcam; debugUIEnabled: false;"
+    vr-mode-ui="enabled: false"
+    renderer="antialias: true; precision: high;"
+  >
+    <!-- Luz ambiental -->
+    <a-light type="ambient" intensity="1"></a-light>
+
+    <!-- Luz direccional -->
+    <a-light type="directional" position="0 5 5" intensity="0.5"></a-light>
+
+    <!-- Montaña (modelo estático) -->
+    <a-entity
+      position="0 0 0"
+      scale="1 1 1"
+      gltf-model="volcan.glb"
+    ></a-entity>
+
+    <!-- Cóndor (modelo animado girando) -->
+    <a-entity
+      position="0 2 0"
+      scale="0.5 0.5 0.5"
+      gltf-model="condoro.glb"
+      animation="property: rotation; to: 0 360 0; loop: true; dur: 5000;"
+    ></a-entity>
+
+    <!-- Patrón marcador para AR.js -->
+    <a-marker preset="hiro">
+      <!-- Montaña y cóndor dentro del marcador -->
+      <a-entity position="0 0 0">
+        <a-entity
+          position="0 0 0"
+          scale="1 1 1"
+          gltf-model="volcan.glb"
+        ></a-entity>
+        <a-entity
+          position="0 2 0"
+          scale="0.5 0.5 0.5"
+          gltf-model="condoro.glb"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 5000;"
+        ></a-entity>
+      </a-entity>
+    </a-marker>
+
+    <!-- Cámara -->
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+</html>
